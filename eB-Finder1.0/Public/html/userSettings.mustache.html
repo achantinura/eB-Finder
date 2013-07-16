@@ -1,0 +1,64 @@
+<div class="box-headline clearfix">
+	<div class="box-headline-item clearix">
+		<h1>Dein Benutzerkonto</h1>
+	</div>
+	<div class="box-headline-item right clearix">
+		<a class="button btn-secondary" href="/">Meine Gruppen</a>
+	</div>
+</div>
+
+<div class="box clearfix" id="userSettings">
+	<div class="box-title box-item wrapper clearfix">
+		<div class="settings-headline">
+			<div class="settings-user-img">
+				<img src="{{userImage}}"/>
+			</div>
+				<h3>Hallo {{userName}}</h3>
+		</div>
+	</div>
+	<div class="box-title box-item wrapper clearfix">
+		<div style="font-size: 26px;">Du bist ein <strong style="color:#bada55;">{{title}}</strong> mit <strong style="color:#bada55;">{{result}}</strong>!</div>
+	</div>
+</div>
+
+<div class="box clearfix" id="userSettings">
+	<div class="box-title box-item wrapper clearfix">
+		<h3>Deine Einstellungen</h3>
+	</div>
+	<div class="box-item wrapper clearfix">
+		<label for="userEmail">E-Mail</label>
+		<input name="" id="userEmail" value="{{email}}" type="text">
+	</div>
+	<div class="box-item wrapper clearfix">
+		<label for="emailAlert">E-Mail Benachrichtigung</label>
+		<select name="emailAlert" id="emailAlert">
+			<option value="off">Off</option>
+			<option value="on" {{#emailAlert}} selected="selected" {{/emailAlert}}>On</option>
+		</select>
+	</div>
+	<div class="box-item wrapper clearfix">
+		<label for="image">Dein Benutzerbild (Bitte Bilder im Hochkantformat verwenden)</label>
+		<input name="image" id="image" placeholder="URL" value="{{image}}" type="text">
+		<div id="imgResult">
+			{{#image}}
+				<img src="{{image}}" style="max-width: 600px; width: auto; height: 250px;" />
+			{{/image}}
+		</div>
+	</div>
+	<div class="box-item wrapper clearfix">
+		<label for="location">Strasse, PLZ, Ort</label>
+		<input name="location" id="location" placeholder="" value="{{location}}" type="text">
+		<div class="settings-location-map">
+		{{#location}} 
+			<img src="https://maps.googleapis.com/maps/api/staticmap?center={{location}}&amp;zoom=14&amp;size=590x250&amp;markers={{location}}&amp;sensor=false" width="590" height="250">
+		{{/location}}
+		</div>
+		<div id="map-canvas"></div>
+	</div>
+	<div class="form-row wrapper clearfix">
+		<a class="button btn-primary" id="btnSettings" onClick="User.saveSettings()">Speichern</a>
+	</div>
+	<div class="form-row wrapper clearfix">
+		<div id="info"></div>
+	</div>
+</div>

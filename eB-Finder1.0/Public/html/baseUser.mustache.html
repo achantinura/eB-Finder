@@ -1,0 +1,79 @@
+<!DOCTYPE>
+<html>
+{{> baseHead}}
+<body class="home">
+	<div class="container">
+		<div class="sidebar clearfix">
+			{{>sidebar}}
+		</div>
+		<div class="main clearfix">
+			{{>user}}
+		</div>
+	</div>
+</body>
+</html>
+
+<!--
+	
+	 {{#userName}}
+
+     <div data-role="navbar" data-iconpos="left">
+            <ul>
+                <li>
+                    <a href="/user" data-transition="fade" data-theme="a" data-icon="bars" class="">
+                        Profil
+                    </a>
+                </li>
+                 <li>
+                    <a href="/user/settings" data-transition="fade" data-theme="a" data-icon="edit">
+                        Einstellungen
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/logout" data-transition="fade" data-theme="a" data-icon="delete">
+                        Abmelden
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+		{{/userName}}
+		{{^userName}}
+		     <div data-role="navbar" data-iconpos="left">
+            <ul>
+                <li>
+                    <a href="/login" data-transition="fade" data-theme="a" data-icon="plus" class="">
+                        Login
+                    </a>
+                </li>
+                 <li>
+                    <a href="/login/register" data-transition="fade" data-theme="a" data-icon="star">
+                        Registrieren
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+		{{/userName}}
+	
+	
+	<div class="container">
+	
+			<!-- Sidebar  -->
+<!--			<div class="content-secondary"> 
+				{{> nav}}
+			</div>
+			
+			<!-- Main Content  -->
+<!--			<div class="content-primary"> 
+		   
+				{{>user}}
+		
+			</div>
+			
+	</div>
+
+    </body>
+</html>
+-->

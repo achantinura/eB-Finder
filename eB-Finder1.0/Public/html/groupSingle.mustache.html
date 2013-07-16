@@ -1,0 +1,65 @@
+<div class="box-headline clearfix">
+	<div class="box-headline-item clearix">
+		<h1>{{name}}</h1>
+	</div>
+	<div class="box-headline-item right clearix">
+		{{#isMemberOfGroup}}
+			<a class="button btn-secondary" href="javascript:void(0);" id="btn-{{_id}}" onClick="Group.leave('{{_id}}');">verlassen</a>
+		{{/isMemberOfGroup}}
+		{{^isMemberOfGroup}}
+			<a class="button btn-secondary" href="javascript:void(0);" id="btn-{{_id}}" onClick="Group.join('{{_id}}');">beitreten</a>
+		{{/isMemberOfGroup}}
+	</div>
+</div>
+{{#name}}
+<div class="box group group-{{_id}} clearfix" data-group-id="{{_id}}">
+	<div class="box-description box-item wrapper clearfix">
+		<label>Beschreibung</label>
+		<p>{{description}}</p>
+	</div>
+	<div class="box-description box-item wrapper clearfix">
+		<label>Statistiken zu dieser Gruppe</label>
+		<p>Diese Gruppe hat {{userCount}} Mitglieder, {{eventsCount}} Events.</p>
+	</div>
+</div>
+<div class="list-primary-button fullwidth clearix {{^isMemberOfGroup}}hidden{{/isMemberOfGroup}}">
+	<a class="button btn-primary btn-fullwidth" href="/event/create/{{_id}}">Neues Event erstellen</a>
+</div>
+
+<div class="box clearfix not-member-info {{#isMemberOfGroup}}hidden{{/isMemberOfGroup}}">
+	<div class="box-item wrapper clearfix">
+		<h3>Werde Mitglied der Gruppe um die Events zu sehen!</h3>
+	</div>
+</div>
+
+<div class="group-events clearfix" {{^isMemberOfGroup}}style="display:none;"{{/isMemberOfGroup}}>
+	{{>event}}
+</div>
+{{/name}}
+{{^name}}
+<div class="no-group clearfix">
+    <h1>Gruppe nicht gefunden</h1>
+</div>
+{{/name}}
+
+<div id="info-g"></div>
+
+
+<script>
+
+$(function () {
+	$('.group-member-s').each(function () {
+		
+		var userId = $(this).attr('data-user-id');
+		
+		jAjax.get(
+			$(this),
+			'/user/' + userId,
+			function (msg) {
+				
+			}
+		);
+	});
+});
+
+</script>

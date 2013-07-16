@@ -1,0 +1,18 @@
+{{#event}}
+<div class="box event event-{{_id}} event-overview-wrapper clearfix" data-event-id="{{_id}}" data-event-location="{{location}}" onclick="location.href = '/event/{{_id}}';">
+	<div class="event-overview-item">
+		<ul>
+			<li class="event-overview-date">{{dateDay}} {{dateMonth}} {{dateYear}}</li>
+			<li class="event-overview-title"><h3>{{name}}</h3></li>
+			<li class="event-overview-arrow"><i class="icon-angle-right icon-4x"></i></li>
+		</ul>
+	</div>
+</div>
+{{/event}}
+{{^event}}
+<div class="box group clearfix">
+	<div class="box-title box-item wrapper clearfix">
+    	<h3>Noch kein Event vorhanden!</h3>
+	</div>
+</div>
+{{/event}}

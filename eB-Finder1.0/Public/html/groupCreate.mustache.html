@@ -1,0 +1,18 @@
+<h1>Erstelle eine Gruppe</h1>
+<div class="group">
+	<form id="createGroup" class="box form-wrapper clearfix">
+		<div class="box-item wrapper clearfix">
+			<label for="groupName">Gruppenname</label>
+			<input name="groupName" id="groupName" placeholder="Name" value="" type="text">
+		</div>
+		<div class="box-item wrapper clearfix">
+			<label for="groupDescription">Beschreibung</label>
+			<input name="groupDescription" id="groupDescription" placeholder="Beschreibung" value="" type="text">
+		</div>
+		<div class="box-item wrapper clearfix">
+			<a class="button btn-primary" id="btnCreateGroup" href="javascript:void(0);" onClick="Group.create()">Gruppe anlegen</a>
+		</div>
+	</form>
+	<div id="info"></div>
+	<div id="res" style="display:none"></div>
+</div>

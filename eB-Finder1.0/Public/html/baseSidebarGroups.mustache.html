@@ -1,0 +1,16 @@
+<div class="sidebar-content clearfix">
+	<h4>Deine Gruppen:</h4>
+	<div class="sidebar-object-list">
+		<ul>
+			{{#userGroups}}
+				<li><a href="/group/{{_id}}">{{name}}</a></li>
+			{{/userGroups}}
+			{{^userGroups}}
+				<li>Du hast noch keine Gruppe</li>
+			{{/userGroups}}
+		</ul>
+	</div>
+	<div class="sidebar-all-groups">
+		<a href="/group" class="button btn-secondary btn-fullwidth">Alle Gruppen</a>
+	</div>
+</div>

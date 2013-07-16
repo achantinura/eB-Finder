@@ -1,0 +1,284 @@
+<script type="text/javascript">
+	$('#voteStartDate').timepicker({
+		'timeFormat': 'H:i',
+		'step': 30,
+		'scrollDefaultNow': true,
+		'forceRoundTime': true
+	});
+	
+	$('#voteEndDate').timepicker({
+		'timeFormat': 'H:i',
+		'step': 30,
+		'scrollDefaultNow': true,
+		'forceRoundTime': true
+	});
+	$(".event").each( function () {
+		var minStart=1500;
+		var maxEnde=0;
+		var resultBeforeWidth = 30;
+		var resultMainWidth = 15;
+		var resultAfterWidth = 100 - (resultBeforeWidth + resultMainWidth);
+		var duration;
+		var oneHour;
+	
+		//minStart und maxEnde berechnen
+		$(this).find(".single-vote").each(function() {
+			if ($(this).data("start") < minStart) {
+				minStart = $(this).data("start");
+			}
+			if ($(this).data("end") > maxEnde) {
+				maxEnde = $(this).data("end");
+			}
+		});
+	
+		//Gesamtdauer und Stundenanteil ausrechnen
+		duration = maxEnde - minStart;
+		oneHour = 100 / duration;
+	
+		//event-result setzen
+		//$(".result-before").css("width", resultBeforeWidth + "%");
+		var intersectionLength = 0;
+		var intersectionStart = -1;
+		var intersectionEnd = 1500;
+		var beforeStart;
+	
+		//single-votes
+		$(this).find(".single-vote").each(function () {
+		    var start = $(this).data("start");
+		    var end = $(this).data("end");
+		    var duration = end - start;
+		    var main = oneHour * duration;
+		    var before = (start - minStart) * oneHour;
+		    var after = 100 - (main + before);
+	
+		    if (start < intersectionEnd) {
+		        if (end > intersectionStart) {
+		            if (start >= intersectionStart) {
+		                intersectionStart = start;
+		            }
+		            if (end <= intersectionEnd) {
+		                intersectionEnd = end;
+		            }
+		            intersectionLength = (intersectionEnd - intersectionStart) * oneHour;
+		        }
+		    }
+	
+	
+	
+		    $(this).find(".single-vote-before").css("width", before + "%");
+		    $(this).find(".single-vote-main").css("width", main + "%");
+		    $(this).find(".single-vote-after").css("width", after + "%");
+		});
+		
+		var intersectionStartMinute = intersectionStart % 60;
+		var intersectionStartHour = (intersectionStart - intersectionStartMinute) / 60;
+		var intersectionEndMinute = intersectionEnd % 60;
+		var intersectionEndHour = (intersectionEnd - intersectionEndMinute) / 60;
+		var intersectionStartMinuteString;
+		var intersectionStartHourString;
+		var intersectionEndMinuteString;
+		var intersectionEndHourString;
+		
+		if (intersectionStartMinute < 10) {
+			intersectionStartMinuteString = '0' + intersectionStartMinute;
+		}
+		else {
+			intersectionStartMinuteString = intersectionStartMinute;
+		}
+		
+		if (parseInt(intersectionStartHour) < 10) {
+			intersectionStartHourString = '0' + intersectionStartHour;
+		}
+		else {
+			intersectionStartHourString = intersectionStartHour;
+		}
+		
+		if (intersectionEndMinute < 10) {
+			intersectionEndMinuteString = '0' + intersectionEndMinute;
+		}
+		else {
+			intersectionEndMinuteString = intersectionEndMinute;
+		}
+		
+		if (intersectionEndHour < 10) {
+			intersectionEndHourString = '0' + intersectionEndHour;
+		}
+		else {
+			intersectionEndHourString = intersectionEndHour;
+		}		
+		
+		$(this).find(".result-main-start").html(intersectionStartHourString + ":" + intersectionStartMinuteString);
+		$(this).find(".result-main-end").html(intersectionEndHourString + ":" + intersectionEndMinuteString);
+		
+		beforeLength = (intersectionStart - minStart) * oneHour;
+		afterLength = (100 - ( beforeLength + intersectionLength));
+		$(this).find(".result-before").css("width", beforeLength + "%");
+		$(this).find(".result-main").css("width", intersectionLength + "%");
+		$(this).find(".result-after").css("width", afterLength + "%");
+	
+	});
+	
+</script>
+{{#event}}
+
+<input type="hidden" id="userId" value="{{userId}}" />
+
+<div class="box-headline clearfix">
+	<div class="box-headline-item clearix">
+		<h1>{{name}}</h1>
+	</div>
+	{{#location}}
+	<div class="box-headline-item right clearix">
+		<a href="javascript:void(0);" class="button btn-secondary event-location-link" data-event-id="{{_id}}">Ort anzeigen</a>
+	</div>
+	{{/location}}
+</div>
+
+<div class="event event-head event-{{_id}} clearfix" data-event-id="{{_id}}" data-event-location="{{location}}">
+	<div class="event-information box-item clearfix">        
+		<div class="event-date">
+            <div class="date-day">
+                {{dateDay}}
+            </div>
+            <div class="date-Month">
+                {{dateMonth}}
+            </div>
+        </div>
+        <div class="event-result">
+            <div class="result-before"></div>
+            <div class="result-main">
+            	<div class="result-main-start"></div>
+            	<div class="result-main-end"></div>
+            </div>
+            <div class="result-after"></div>
+        </div>
+        <div class="event-participant">
+            <div class="participant-count">
+                {{userCount}}
+            </div>
+            <div class="participants-needed hidden"></div>
+        </div>
+    </div>
+    <div class="event-votes">
+       {{> eventVote}}
+    </div>
+</div>
+
+<div class="box group event-map clearfix hidden">
+	<div class="box-item wrapper clearfix">
+		<h3>Ort der Veranstaltung</h3>
+	</div> 
+    <div class="box-item wrapper clearfix">
+        <div class="map-canvas clearfix"></div>
+    </div>
+    <div class="box-item-inline wrapper clearfix"> 
+	    {{#userlocation}}
+	    	<a href="javascript:void(0);" onClick="EventMap.calcRoute('{{userlocation}}')" class="button btn-secondary">Route anzeigen</a>
+	    {{/userlocation}}
+    </div>
+	<div class="box-item-inline wrapper pull-right clearfix">
+		<a href="javascript:void(0);" class="button btn-secondary event-location-link" data-event-id="{{_id}}">Karte ausblenden</a>
+	</div>
+</div>
+
+<div class="box event-vote-add clearfix">
+	<div class="box-item wrapper clearfix">
+		<h3>Am Event teilnehmen</h3>
+	</div>
+	<div id="createVoteInfo" class="wrapper"></div>
+	<div class="box-item twocol wrapper clearfix">
+		<label for="voteStartDate">Ab wann kann ich?</label>
+		<input name="" id="voteStartDate" placeholder="" value="" type="text">
+	</div>
+	<div class="box-item twocol wrapper clearfix">
+		<label for="voteEndDate">Bis wann kann ich?</label>
+		<input name="" id="voteEndDate" placeholder="" value="" type="text">
+	</div>
+	<div class="box-item wrapper clearfix">
+		<a class="button btn-primary" id="btnCreateVote" href="javascript:void(0);" onClick="Event.createVote()">teilnehmen</a>
+	</div>
+</div>
+
+<div class="box clearfix">
+	<div class="box-item wrapper clearfix">
+		<h3>Eventbewertung</h3>
+	</div>
+	<div id="info" class="wrapper"></div>
+	<div class="box-item wrapper clearfix">
+		<div style="background:#96D957; height:10px;"><div id="negVotes" style="background:#E33434;height:10px;float:right;width:0%;"></div></div>
+	</div>
+	<div class="box-item wrapper clearfix">
+		<span style="color:#96D957;"><i class="icon-thumbs-up"></i> </span><span id="upv" style="color:#96D957;">{{upvotes}}</span> gefällt das Event, <span style="color:#E33434;"><i class="icon-thumbs-down"></i> </span><span id="downv" style="color:#E33434;">{{downvotes}}</span> gefällt es nicht.
+	</div>
+	 {{#notVoted}}
+	 <div class="box-item wrapper clearfix">
+	 	<label for="voteStartDate">Bewerte dieses Event</label>
+	 	<a href="javascript:void(0);" class="button btn-secondary" id="e-upvote" onClick="Group.userVote('{{_id}}',true)">upvote</a>
+	 	<a href="javascript:void(0);" class="button btn-secondary" id="e-downvote" onClick="Group.userVote('{{_id}}', false)">downvote</a>
+	 </div>
+	 {{/notVoted}}
+</div>
+
+<div class="box event-comment-add clearfix">
+	<div class="box-item wrapper clearfix">
+		<h3>Kommentare</h3>
+	</div>
+	<div class="eventComments" id="eventComments">
+		{{> eventComments}}
+	</div>
+	<div class="box-item wrapper clearfix">
+		<input name="" id="eventComment" placeholder="Kommentar eingeben..." value="" type="text">
+	</div>
+	<div class="box-item wrapper clearfix">
+		<a class="button btn-secondary" id="btnCreateComment" href="javascript:void(0);" onClick="Event.createComment()">kommentieren</a>
+	</div>
+</div>
+
+<div class="box clearfix">
+	<div class="box-item wrapper clearfix">
+		<h3>Andere Teilnehmer bewerten</h3>
+	</div>
+	{{#users}}
+		<span class="usr-nr" data-user-id="{{.}}" id="usr-{{.}}">{{.}}</span>
+	{{/users}}
+	{{^users}}
+		<span class="overview-participant-title">Bisher keine Teilnehmer</span>
+	{{/users}}
+</div>
+
+<script>
+$(function () {
+	
+	$('#negVotes').css({ width: (({{downvotes}}/({{downvotes}} + {{upvotes}})) * 100).toString() + '%'});
+	
+	
+	$('.usr-nr').each(function () {
+		//var userId = $(this).text();
+		
+		var userId = $(this).attr('data-user-id');
+				
+				jAjax.get(
+					$(this),
+					'/user/{{_id}}' +'/' + userId,
+					function (msg) {
+						
+					}
+				);
+	});
+	
+});
+</script>
+
+
+{{/event}}
+{{^event}}
+    Err(groupEvent.mustache.html): kein Event vorhanden!
+{{/event}}
+
+<script>
+
+$(function ()  {
+	EventMap.init();
+});
+
+</script>

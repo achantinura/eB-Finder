@@ -1,0 +1,53 @@
+{{#event}}
+<div class="box event event-{{_id}} clearfix" data-event-id="{{_id}}" data-event-location="{{location}}">
+    <div class="event-title box-item wrapper clearfix">
+        <h3><a href="javascript:void(0);" onclick="Event.getEventById($(this))">{{name}}</a></h3>
+    </div>
+    <div class="event-information box-item wrapper clearfix">
+        <div class="event-date clearfix">
+            <div class="date-day">
+                {{date}}
+            </div>
+        </div>
+        <div class="event-result clearfix">
+            <div class="result-before"></div>
+            <div class="result-main"></div>
+            <div class="result-after"></div>
+        </div>
+        <div class="event-participant clearfix">
+            <div class="participant-count">
+                {{userCount}}
+            </div>
+            <div class="participants-needed hidden"></div>
+        </div>
+    </div>
+    <div class="event-overview box-item wrapper clearfix">
+        <div class="overview-participant">
+            {{#users}}
+                <span class="overview-participant-title">Teilnehmer </span>{{> eventParticipants}}
+            {{/users}}
+            {{^users}}
+                <span class="overview-participant-title">Bisher keine Teilnehmer</span>
+            {{/users}}
+        </div>
+        <div class="overview-location">
+            <a href="javascript:void(0);" class='event-location-link' data-event-id="{{_id}}">show location</a>
+        </div>
+    </div>
+    <div class="event-map box-item wrapper clearfix hidden">
+        <div class="map-canvas"></div>
+    </div>
+    <div class="event-votes box-item wrapper clearfix">
+        {{#votes}}
+            {{> eventVote}}
+        {{/votes}}
+    </div>
+</div>
+{{/event}}
+{{^event}}
+<div class="box group clearfix">
+	<div class="box-title box-item wrapper clearfix">
+    	<h3>Noch kein Event vorhanden!</h3>
+	</div>
+</div>
+{{/event}}

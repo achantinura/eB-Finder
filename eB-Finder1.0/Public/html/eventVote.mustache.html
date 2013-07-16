@@ -1,0 +1,25 @@
+{{#votes}}
+<div class="vote clearfix" data-event-id="{{eventId}}" data-vote-id="{{_id}}" data-voter-id="{{userId}}">
+    <div class="vote-box">
+        <div class="single-vote" data-vote-id="{{_id}}" data-start="{{startDate}}" data-end="{{endDate}}">
+            <div class="single-vote-before"></div>
+            <div class="single-vote-main">
+            	<div class="single-vote-start">{{start}}</div>
+            	<div class="single-vote-end">{{end}}</div>
+            </div>
+            <div class="single-vote-after"></div>
+            
+        </div>
+    </div>
+    {{#user}}
+    <div class="voter" data-voter-id="{{userId}}">
+        <div class="voter-name">
+        	{{userName}}
+        </div>
+    </div>
+    {{/user}}
+</div>
+{{/votes}}
+{{^votes}}
+    Err(eventVote): kein vote vorhanden
+{{/votes}}

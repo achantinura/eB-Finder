@@ -1,0 +1,46 @@
+<h1>Erstelle ein Event</h1>
+<div class="groupEvent">
+	<script type="text/javascript">
+		$('#voteStartDate').timepicker({
+			'timeFormat': 'H:i',
+			'step': 30,
+			'scrollDefaultNow': true,
+			'forceRoundTime': true
+		});
+	
+		$('#voteEndDate').timepicker({
+			'timeFormat': 'H:i',
+			'step': 30,
+			'scrollDefaultNow': true,
+			'forceRoundTime': true
+		});
+	</script>
+	<form id="createEvent" class="box form-wrapper clearfix">
+		<input type="hidden" value="{{groupId}}" id="groupId" hidden="true" />
+		<div class="box-item wrapper clearfix">
+			<label for="eventName">Eventname</label>
+			<input name="eventName" id="eventName" placeholder="Eventname" value="" type="text">
+		</div>
+		<div class="box-item wrapper clearfix">
+			<label for="eventLocation">Ort (Ort, Straße)</label>
+			<input name="eventLocation" id="eventLocation" placeholder="Ort (Ort, Straße)" value="" type="text">
+		</div>
+		<div class="box-item wrapper clearfix">
+			<label for="eventDate">Datum</label>
+			<input name="eventDate" id="eventDate" value="" type="date" >
+		</div>
+		<div class="box-item twocol wrapper clearfix">
+			<label for="voteStartDate">Startzeitpunkt</label>
+			<input type="text" name="voteStartDate" id="voteStartDate" value="">
+		</div>
+		<div class="box-item twocol wrapper clearfix">
+			<label for="voteEndDate">Endzeitpunkt</label>
+			<input type="text" name="voteEndDate" maxlength="2" id="voteEndDate" value="">
+		</div>
+		<div class="box-item twocol wrapper clearfix">
+			<a class="button btn-primary" id="btnCreateEvent" href="javascript:void(0);" onClick="Event.create()">Event anlegen</a>
+		</div>
+	</form>
+	<div id="res" style="display:none"></div>
+	<div id="info"></div>
+</div>

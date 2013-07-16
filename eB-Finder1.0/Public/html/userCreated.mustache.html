@@ -1,0 +1,12 @@
+{{#userName}}
+<div class="event" data-user-id="{{_id}}">
+    <div class="event-title">
+    	<h2>User erstellt.</h2>
+        <div>Name :{{userName}}</div>
+        <div>Id :{{_id}}</div>
+     </div>
+</div>
+{{/userName}}
+{{^userName}}
+     <span class="overview-participant-title">Fehler.</span>
+{{/userName}}

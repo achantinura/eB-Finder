@@ -1,0 +1,60 @@
+{{#userName}}
+<div id="{{id}}" class="usr-container" >
+
+
+		<div class="box-item clearfix">
+			<div style="width:50px;float:left;">{{#eventId}}
+				<div style="text-align:center; padding:0;  width:50px;"
+					{{#votedNotYet}}
+						onClick="User.userVote('{{eventId}}', '{{id}}', true);" class="button btn-secondary ui-link"
+					{{/votedNotYet}}
+					{{^votedNotYet}}
+						class="usr-btn-psv"
+					{{/votedNotYet}}
+				>
+					<img src="/Public/images/upvote.png"  id="upvote" style="padding:10px;" />
+					<div id="upvotes">{{upvotes}}</div>
+				</div>
+				<div style="text-align:center;margin-top:10px; width:50px; padding:0;"
+					{{#votedNotYet}}
+						onClick="User.userVote('{{eventId}}', '{{id}}', false);" class="button btn-secondary ui-link"
+					{{/votedNotYet}}
+					{{^votedNotYet}}
+						class="usr-btn-psv"
+					{{/votedNotYet}}
+				>
+					<img src="/Public/images/downvote.png" id="downvote" style="padding:10px;" />
+					<div id="downvotes">{{downvotes}}</div>
+				</div>
+				{{/eventId}}
+			</div>
+			<div class="user-inner-container">
+				
+				<div class="usr-img-container">
+					{{#image}}
+					<img src="{{image}}" />
+					{{/image}}
+					{{^image}}
+					<img src="/Public/images/user-icon.jpg"  />
+					{{/image}}
+				</div>
+			
+				<div class="">
+					<div class="usr-result">{{result}}</div>
+						<div class="usr-title">{{title}}</div>
+					</div>
+				</div>
+			
+			</div>
+			
+				<div class="usr-name">
+					<h3>{{userName}}</h3>
+				</div>
+			
+		</div>
+		
+</div>
+{{/userName}}
+{{^userName}}
+     <span class="">kein User gefunden.</span>
+{{/userName}}

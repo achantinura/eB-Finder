@@ -1,0 +1,28 @@
+<div class="box-headline clearfix">
+	<div class="box-headline-item clearix">
+		<h1>Alle Gruppen</h1>
+	</div>
+	<div class="box-headline-item right clearix">
+		<a class="button btn-secondary" href="/">Meine Gruppen</a>
+	</div>
+</div>
+<div class="list-primary-button fullwidth clearix">
+	<a class="button btn-primary btn-fullwidth" href="/group/create">Neue Gruppe erstellen</a>
+</div>
+{{#allGroups}}
+<div class="box group group-{{_id}} group-overview-wrapper clearfix" data-group-id="{{_id}}" onclick="location.href = '/group/{{_id}}';">
+	<div class="group-overview-item">
+		<ul>
+			<li class="group-overview-participant"><strong>{{userCount}}</strong><br />Mitglieder</li>
+			<li class="group-overview-content"><h3>{{name}}</h3><br />{{description}}</li>
+			<li class="group-overview-arrow"><i class="icon-angle-right icon-4x"></i></li>
+		</ul>
+	</div>
+</div>
+{{/allGroups}}
+{{^allGroups}}
+<div class="no-group clearfix">
+    <h1>Noch keine Gruppe vorhanden!</h1>
+    <a class="button primary" href="/group/create">Gruppe erstellen</a>
+</div>
+{{/allGroups}}

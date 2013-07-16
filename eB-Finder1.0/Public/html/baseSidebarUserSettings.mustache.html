@@ -1,0 +1,20 @@
+{{#userName}}
+<div class="sidebar-user wrapper">
+	<div class="nav-user">
+		<ul>
+			<li><a href="/user/settings" class="button btn-secondary btn-fullwidth">Mein Profil</a></li>
+			<li><a href="/user/logout" class="button btn-logout btn-fullwidth">Abmelden</a></li>
+		</ul>
+	</div>
+</div>
+{{/userName}}
+{{^userName}}
+<div class="sidebar-user wrapper">
+	<div class="nav-user">
+		<ul>
+			<li><a href="/login" class="nav-item nav-sidebar">Login</a></li>
+			<li><a href="/login/register" class="nav-item nav-sidebar">Registrieren</a></li>
+		</ul>
+	</div>
+</div>
+{{/userName}}
